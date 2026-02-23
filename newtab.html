@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>九九 AI 練習</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f7f7f7;
+}
+
+/* ===== 上方列 ===== */
+.topbar{
+    background:white;
+    padding:15px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.logo{
+    font-size:24px;
+    font-weight:bold;
+}
+
+.stats{
+    font-size:18px;
+}
+
+/* ===== 主畫面 ===== */
+.container{
+    display:flex;
+    height:calc(100vh - 70px);
+}
+
+/* 左側遊戲區 */
+.game{
+    flex:2;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+#question{
+    font-size:64px;
+    margin:20px;
+}
+
+input{
+    font-size:32px;
+    padding:12px;
+    width:160px;
+    text-align:center;
+    border-radius:12px;
+    border:2px solid #ddd;
+}
+
+button{
+    margin-top:20px;
+    font-size:22px;
+    padding:12px 30px;
+    border:none;
+    border-radius:12px;
+    background:#58cc02;
+    color:white;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#46a302;
+}
+
+#result{
+    font-size:28px;
+    margin-top:20px;
+}
+
+/* ===== 右側AI面板 ===== */
+.sidebar{
+    flex:1;
+    background:white;
+    padding:25px;
+    box-shadow:-2px 0 10px rgba(0,0,0,0.08);
+}
+
+.sidebar h2{
+    margin-top:0;
+}
+
+.weak-item{
+    font-size:20px;
+    margin:10px 0;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+    <div class="logo">🧮 九九 AI</div>
+    <div class="stats">
+        ⏱ <span id="timer">30</span>s　
+        ⭐ <span id="score">0</span>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- 左側 -->
+    <div class="game">
+
+        <select id="difficulty">
+            <option value="5">😊 簡單</option>
+            <option value="9" selected>🙂 普通</option>
+            <option value="12">🔥 困難</option>
+        </select>
+
+        <div id="question"></div>
+
+        <input id="answer" type="number">
+
+        <button id="checkBtn">確認</button>
+
+        <div id="result"></div>
+
+    </div>
+
+    <!-- 右側 AI -->
+    <div class="sidebar">
+        <h2>🧠 AI 弱點分析</h2>
+        <div id="weakList">目前沒有資料</div>
+    </div>
+
+</div>
+
+<script src="newtab.js"></script>
+
+</body>
+</html>
