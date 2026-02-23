@@ -1,0 +1,10 @@
+{
+  "name": "九九乘法 AI 練習",
+  "description": "打開新分頁自動練習九九乘法",
+  "version": "1.0",
+  "manifest_version": 3,
+
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  }
+}

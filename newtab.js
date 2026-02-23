@@ -6,6 +6,7 @@ let score = 0;
 let time = 30;
 let gameRunning = true;
 let timerInterval;
+let combo = 0;
 
 // ===== 載入永久錯題記憶 =====
 let saved = localStorage.getItem("wrongQuestions");
@@ -21,7 +22,24 @@ function saveMemory() {
     updateWeakPanel(wrongQuestions);
 }
 
+function showCombo(){
 
+    let box = document.getElementById("combo");
+
+    if(combo < 2){
+        box.innerText = "";
+        return;
+    }
+
+    box.innerText = "🔥 COMBO x" + combo;
+
+    // 動畫
+    box.classList.add("combo-pop");
+
+    setTimeout(()=>{
+        box.classList.remove("combo-pop");
+    },200);
+}
 // ===== AI 出題 =====
 function newQuestion() {
 
@@ -65,8 +83,13 @@ function checkAnswer() {
 
     if (userAnswer === num1 * num2) {
 
+    	combo++;   // ⭐連擊增加
         document.getElementById("result").innerText = "✅ 正確！";
-        score++;
+
+    	// Combo加成分數
+    	score += 1 + Math.floor(combo/3);
+
+    	showCombo();
 
         // 從錯題移除
         wrongQuestions = wrongQuestions.filter(
@@ -76,6 +99,7 @@ function checkAnswer() {
         saveMemory();
 
     } else {
+    	combo = 0; // ⭐連擊中斷
 
         document.getElementById("result").innerText =
             "❌ 答案是 " + (num1 * num2);
@@ -139,11 +163,31 @@ function startTimer() {
 
             document.getElementById("result").innerText =
                 "最終分數：" + score;
+
+            document.getElementById("restartBtn").style.display = "inline-block";
         }
 
     }, 1000);
 }
 
+function restartGame(){
+
+    score = 0;
+    combo = 0;
+    time = 30;
+    gameRunning = true;
+
+    document.getElementById("score").innerText = 0;
+    document.getElementById("timer").innerText = time;
+    document.getElementById("result").innerText = "";
+    document.getElementById("combo").innerText = "";
+
+    document.getElementById("restartBtn").style.display = "none";
+
+    clearInterval(timerInterval);
+    startTimer();
+    newQuestion();
+}
 
 // ===== Enter送出 =====
 document.getElementById("answer")
@@ -154,9 +198,17 @@ document.getElementById("answer")
 document.getElementById("checkBtn")
 .addEventListener("click", checkAnswer);
 
+document.getElementById("restartBtn")
+.addEventListener("click", restartGame);
 
 // ===== 開始遊戲 =====
 newQuestion();
 startTimer();
 updateWeakPanel(wrongQuestions);
+
+// ===== 啟用離線功能 =====
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js");
+}
+
 };

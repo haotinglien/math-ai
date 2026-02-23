@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#58cc02">
+
 <meta charset="UTF-8">
 <title>九九 AI 練習</title>
 
@@ -80,6 +83,26 @@ button:hover{
     margin-top:20px;
 }
 
+#restartBtn{
+    background:#1cb0f6;
+}
+
+#restartBtn:hover{
+    background:#1899d6;
+}
+
+#combo{
+    font-size:36px;
+    margin-top:10px;
+    color:#ff6b00;
+    font-weight:bold;
+    transition: transform 0.2s ease;
+}
+
+.combo-pop{
+    transform: scale(1.5);
+}
+
 /* ===== 右側AI面板 ===== */
 .sidebar{
     flex:1;
@@ -128,6 +151,12 @@ button:hover{
         <button id="checkBtn">確認</button>
 
         <div id="result"></div>
+
+	<div id="combo"></div>
+
+        <button id="restartBtn" style="display:none;">
+            🔁 再玩一次
+        </button>
 
     </div>
 
